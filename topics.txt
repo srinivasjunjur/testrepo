@@ -1,0 +1,945 @@
+28July --2Hours
+
+Linux Basic--distributions
+
+29 July -- 2 Hours
+Cat/mk/rm/cp cd - , cd ~, # root, $ other than root user(admin...normal user),
+Linux----unbuntu-Debain/centos-RedHat
+webserver installation with 
+net-tools for prerequisties of ifconig
+yum updates for pre-req-  of  ufw/iptables ...
+apt-get -y (ubuntu)... yum -y (centos)
+tree install with
+
+yum install tree
+
+create dir structure 
+
+-p parents 
+
+mkdir -p srinivas/{ram,srin/1,2/hello,Hai}}}
+
+
+vim
+
+
+Hypervisior--VMWARE WORK STATION or VIRTUAL-- vm create--[hypervisior(using host(laptop/client) os resources )] - this is on each host -- this all under vmware vsphere
+
+VM vsphere client- EXS servers -- using EXI servers -- vm (hosts)-- real time
+
+
+Hyper visier need a individal kernel for each VM(need fixed ram/hd/...)
+
+But for docker no need to give specific/addition kernel--- will work on host kernel (where u can n vm as containers)
+
+
+today 04/08/2018
+
+VIM:
+
+there are three modes
+
+command mode - 10yy copy ten number of lines
+
+insert- edit mode
+Extened mode, when we give colon :..it is also exit mode...w, q, wq wq! , x save and quit, X to encrpt with password amd to remove also.
+
+
+vim -o file1 file2
+
+ ctrl w to switch b/w files
+ 
+ 
+ Listing files
+ 
+ ls
+ ls -l... long list
+ ll --alias of ls -al 
+
+ White ..normal file ---and also start d
+ blue directories.. start with '-'
+ green excuted... if need executable file chmod 777 
+ soft link file starts with l and color skyy blue/greeny
+ b start for hardisk /removeable ..b means blcoked 
+ 
+ i for ignore while greeping
+
+grep <text> <filename>
+-nAn... lines after given n number line
+
+#vim  hari
+Hari
+
+abcd
+hsjd
+
+this is bharath
+Ramu
+srinivas/{ram
+
+#grep -nA2<-nAn> this<keyword/text> Hari<filename>
+======================================
+user in system
+
+#cat /etc/passwd
+
+will display the user information in the current system
+===========================
+to know the running processes
+
+ps aux
+
+operation after adding user in ubuntu...user operation.//switching normal user /admin/root\
+ramu normal, srinivas admin , root... only admin(sudoier) can work root ..but not normal user
+-------------------------------------
+
+root@ubuntu:/home/srinivas# su ramu
+ramu@ubuntu:/home/srinivas$ exit
+root@ubuntu:/home/srinivas# exit
+srinivas@ubuntu:~$ su
+Password: 
+root@ubuntu:/home/srinivas# su ramu
+ramu@ubuntu:/home/srinivas$ su srinivas
+Password: 
+srinivas@ubuntu:~$ su ramu
+Password: 
+su: Authentication failure
+srinivas@ubuntu:~$ ramu
+ramu: command not found
+srinivas@ubuntu:~$ su ramu
+Password: 
+ramu@ubuntu:/home/srinivas$ sudo su
+[sudo] password for ramu: 
+ramu is not in the sudoers file.  This incident will be reported.
+ramu@ubuntu:/home/srinivas$ ^C
+ramu@ubuntu:/home/srinivas$ 
+----------------------------------------------------
+
+Symbolic Links--
+Hard and Soft Links--
+
+softlink is only the charc digit equal to name -orginal 
+Hardlink its same as orginal file
+
+Softlink Known as short cut 
+Hardlink known as backup backup
+
+ln -s "existing-file" <creatingnewlinkfilename>
+
+ex:
+ln -s srinu srinulink
+
+
+Hard link
+ln flename hardlinkname
+
+head tail
+
+head -4 srinu
+
+tail -f srinu
+
+Resume -- worked 
+File Permissions
+
+levels U, g , 0
+permission...r w x 
+types
+Sysmbolic & Absolute
+
+Being in linx server -- tried to use pem key of AWS and try to login AWS -EC2instance..
+where the user permission changes to 400, as it not recommended to have u rw g rw o r (g and o has persission)
+
+11 August 2018
+
+Users and Group management
+
+
+Three types user
+
+Superuser , system user and normal user 
+
+Under paswd 
+
+VIM /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+
+root =name
+ x= link to password file i.e. /etc/shadow
+ 0 or 1= UID (user id)
+ 0 or 1=GID (group id)
+ root or bin = comment (brief information about the user)
+ /root or /bin = home directory of the user
+ /bin/bash or /sbin/nologin = shell
+
+
+under shadow
+
+#vim /etc/shadow
+
+srinivas:$1$JO$GfpQYfWVUjJMA47cLZd7S.:17741:0:99999:7:::
+
+
+1$JO$GfpQYfWVUjJMA47cLZd7S : passwd encrpted
+
+17741: from  n number of day the paswd was last chnaged
+
+0 : days after which passwd must be changed
+
+99999: Days before passwd is to expire that user is warned 
+
+7; Days after passwd is expires that the user is disbaled 
+ 
+ 
+Password Complexity Requirements:
+ 
+ A root user can change password of self and of any user in the system, there are no rules for
+root to assign a password. Root can assign any length of password either long or short, it
+can be alphabet or numeric or both. On the whole there is no limitation for root for
+assigning a password.
+ A normal user can change only its password. Valid password for a normal user should adhere to
+the following rules
+ It should be at least 7 characters but not more than 255 characters.
+ At least one character should be Upper case
+ At least one character should be Lower case
+ At least one character should be a symbol, and one character should be a number.
+ It should not match the previous password.
+ It cannot have a sequence (ex: 123456 or abcdef )
+ The login name and the password cannot be same.
+Note: For security reasons don’t keep the password based on date of birth because it can easily be
+hacked.
+LAB WORK:-
+Creating a user
+ The syntax for creating a user in Linux is
+ # useradd <option> <username>
+ options are
+ -u user id
+ -G Secondary group id
+ -g primary group id
+ -d home directory
+ -c comment
+ -s shell
+
+User adding , with user group home direc 
+
+
+[root@localhost srinivas]# useradd ramu -u 1223 -g 1001 -d /home/ramu
+
+can find the group vim /etc/group
+ can find the user in /etc/passwd
+ passwd can be find in /etc/shadow
+ 
+ -g primary
+ 
+ -G secondary ...modifying
+ 
+ 
+ Modifying the user’s attribute 
+ 
+ After creating a user if we need to modify the attributes of user like changing uid, 
+changing secondary group id or adding a comment, locking or unlocking the user account, 
+can be done by following command 
+ Syntax. # usermod  <options>  <username>  options are: 
+
+
+
+ all the options which are used with useradd command can be used and also the following, 
+  -l  to change login name 
+  -L  to LOCK account 
+  -U  to UNLOCK account 
+ 
+ ex. # usermod   -l   newname   oldname (changing  the name of the  user) 
+ ex. # usermod   -L   newname   to lock the user account 
+ ex. # usermod   -U   newname  to unlock the user account 
+ Note: - when an account is locked it will show! (Exclamation mark) in /etc/shadow file.
+
+ 
+ To display the items in a file which are displayed in table format only particular wise with respect to a separator or delimeter
+ 
+ f is column , d is delimeter semicolon ": " is a separator in below command..filename /etc/passwd 
+ 
+ 
+ # cut -d: -f1 /etc/passwd
+
+ Modifying the passwd parameter...
+ 
+ [root@localhost home]# chage srinu123
+Changing the aging information for srinu123
+Enter the new value, or press ENTER for the default
+
+	Minimum Password Age [0]: 
+	Maximum Password Age [99999]: 
+	Last Password Change (YYYY-MM-DD) [2018-08-11]: 
+	Password Expiration Warning [7]: 
+	Password Inactive [-1]: 
+	Account Expiration Date (YYYY-MM-DD) [-1]: 
+[root@localhost home]# 
+
+later for each parameter operations
+
+-M 
+
+
+The second method is for, if you want to change a particular field of password aging policy
+ #chage <option> <value> <username>
+ The options which can be used are as follows
+ -m for Min password age
+ -M for Max password age
+ -d for last time the password is changed.
+ -W Password expiration warnings
+ -I Password inactive [-1 means inactive].
+ -E A/C expiration date
+ Let’s see how to change only the account expiration date
+
+delete of User
+
+#userdel <username> 
+ for only deleting the user ...not its home directories and mail box
+
+#userdel <username> -r  
+for deleting the user ...including its home directories and mail box
+ 
+Group Management
+
+  User group
+  
+
+user mod used for changing  group from some group to other
+
+[root@localhost srinivas]# usermod -G rammmmmm srinu123
+
+group mod used for changing  group from some existing groupname "-n" to other also same for group id "-g"
+
+[root@localhost srinivas]# groupmod -n rammmmmm rammmm
+
+[root@localhost srinivas]# groupmod -g 4444 rammmmmm 
+
+
+ Adding multiple single or multiple users to the group with various attributes
+ #gpasswd < option> <arguments> <group name>
+ Options:
+ -M For Adding Multiple users to a group
+ -A for Adding a group Administrator
+ -a for Adding a single user to a group
+ -d removing a user from a group
+ #gpasswd –M <user>,<user>,<user> <group>
+ #gpasswd –M ktuser2,ktuser3,ktuser4 ktgroup
+
+[root@localhost srinivas]# gpasswd -M srinu123,sasi,harirath rammmmmm
+[root@localhost srinivas]# tail -f /etc/group
+postfix:x:89:
+chrony:x:996:
+srinivas:x:1000:srinivas
+apache:x:48:
+srinu:x:1001:harirath,sasi,sasina,sina
+harirath:x:4223:
+sasi:x:4224:
+sasina:x:4225:
+raju:x:4226:
+rammmmmm:x:4444:srinu123,sasi,harirath
+^[[B^C
+[root@localhost srinivas]# gpasswd -A srinu123 rammmmmm
+[root@localhost srinivas]# tail -f /etc/group
+postfix:x:89:
+chrony:x:996:
+srinivas:x:1000:srinivas
+apache:x:48:
+srinu:x:1001:harirath,sasi,sasina,sina
+harirath:x:4223:
+sasi:x:4224:
+sasina:x:4225:
+raju:x:4226:
+rammmmmm:x:4444:srinu123,sasi,harirath
+^C
+[root@localhost srinivas]# tail -f /etc/passwd
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+ramu:x:1223:1001::/home/ramu:/bin/bash
+hariramu:x:2223:1001:Hari:/home/ramu:/bin/bash
+harira:x:3223:1001:Hari:/home/harira:/bin/bash
+harirath:x:4223:4223:Hari:/home/harirath:/bin/bash
+srinu123:x:1001:1001::/home/srinu:/bin/bash
+sasi:x:700:4224::/home/sasi:/bin/bash
+sasina:x:701:4225:thisisgood:/home/sasina:/bin/bash
+sina:x:710:4225:thisisgood:/home/sina:/bin/bash
+rrrrr:x:6666:4444::/home/rrrrr:/bin/bash
+^C
+[root@localhost srinivas]# tail -f /etc/shadow
+apache:!!:17741::::::
+ramu:!!:17754:0:99999:7:::
+hariramu:!!:17754:0:99999:7:::
+harira:!!:17754:0:99999:7:::
+harirath:!!:17754:0:99999:7:::
+srinu123:$6$ZoWQ4D8N$t90kg5ryuw9w1UB0epwVu5l6BJ5JhgqV3.b2fGcBWzdnBBaFhm3H6jl/xIYLE4pIZW/U.OpDuZXEDBXqgZZ64/:17754:0:99999:7:::
+sasi:!!:17754:0:99999:7:::
+sasina:!!:17754:0:99999:7:::
+sina:!!:17754:0:99999:7:::
+rrrrr:!!:17754:0:99999:7:::
+^C
+[root@localhost srinivas]# tail -f /etc/gshadow
+postfix:!::
+chrony:!::
+srinivas:!!::srinivas
+apache:!::
+srinu:!::harirath,sasi,sasina,sina
+harirath:!::
+sasi:!::
+sasina:!::
+raju:!::
+rammmmmm:!:srinu123:srinu123,sasi,harirath
+^C
+[root@localhost srinivas]# tail -f /etc/gpasswd
+tail: cannot open ‘/etc/gpasswd’ for reading: No such file or directory
+tail: no files remaining
+[root@localhost srinivas]# ^C
+[root@localhost srinivas]# tail -f /etc/^C
+[root@localhost srinivas]# gpasswd -d sasi rammmmmm
+Removing user sasi from group rammmmmm
+[root@localhost srinivas]# ^C
+[root@localhost srinivas]# BBB
+
+==========================================================
+August 15 
+
+Partitions-mamaganemnt
+
+To view the managed or changed partiton for existing.
+
+#fdisk -l or parted -l
+
+Creating Partitions 
+
+[root@localhost srinivas]# fdisk -l
+
+Disk /dev/sda: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0003b11b
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200    41943039    19921920   8e  Linux LVM
+
+Disk /dev/mapper/centos-root: 18.2 GB, 18249416704 bytes, 35643392 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/centos-swap: 2147 MB, 2147483648 bytes, 4194304 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sdb: 2147 MB, 2147483648 bytes, 4194304 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x8b6518ce
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1         1028096     3125247     1048576   83  Linux
+/dev/sdb2            2048     1026047      512000   83  Linux
+/dev/sdb3         1026048     1028095        1024   83  Linux
+/dev/sdb4         3125248     3944447      409600   83  Linux
+
+Partition table entries are not in disk order
+[root@localhost srinivas]# fdisk /dev/sdb 
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): m
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   g   create a new empty GPT partition table
+   G   create an IRIX (SGI) partition table
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
+
+Command (m for help): n
+If you want to create more than four partitions, you must replace a
+primary partition with an extended partition first.
+
+
+Formating a partition
+The device apparently does not exist; did you specify it correctly?
+[root@localhost srinivas]# mkfs.ext4 /dev/sdb1
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+65536 inodes, 262144 blocks
+13107 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=268435456
+8 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+
+
+Mounting a partition
+There are two types
+
+Temp
+Permanent
+to Mount 
+# mount <partition> <source to be used to utilize>
+
+To unmount the partition
+
+# umount <source which was mount in above>
+
+The info of mounted temparory , can be found in /etc/mtab file
+
+to check it mounted or not
+
+#mount 
+
+Permanent Mount
+
+The info of mounted permanent , can be found in /etc/fstab file
+
+Edited the file in last line for above operation of mount permanently
+
+/dev/sdb1        /home/srinu          ext4            defaults 0 0 
+
+partition---- target to be mounted--- fileSystem--mountoptions--dumping- checksequence 
+
+To apply the changes command is 
+
+# mount -a 
+
+to check the mounting info
+
+# mount
+
+
+========
+
+operation on CLI for all above
+
+[root@localhost srinu]# mount /dev/sdb1 /home/srinu
+[root@localhost srinu]# vim /etc/mtab 
+[root@localhost srinu]# umount /home/srinu
+[root@localhost srinu]# mo^Ct /dev/sdb1 /home/srinu
+[root@localhost srinu]# vim /etc/fstab 
+[root@localhost srinu]# mount -a
+[root@localhost srinu]# mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime,seclabel)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+devtmpfs on /dev type devtmpfs (rw,nosuid,seclabel,size=486728k,nr_inodes=121682,mode=755)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,seclabel)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,seclabel,mode=755)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,seclabel,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,net_prio,net_cls)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,perf_event)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,devices)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,blkio)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuacct,cpu)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,hugetlb)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,memory)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,pids)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuset)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,freezer)
+configfs on /sys/kernel/config type configfs (rw,relatime)
+/dev/mapper/centos-root on / type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=25,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=13366)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel)
+mqueue on /dev/mqueue type mqueue (rw,relatime,seclabel)
+/dev/sda1 on /boot type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=99796k,mode=700,uid=1000,gid=1000)
+/dev/sdb1 on /home/srinu type ext4 (rw,relatime,seclabel,data=ordered)
+[root@localhost srinu]# umount /home/srinu
+[root@localhost srinu]# mount -a
+[root@localhost srinu]# mount
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime,seclabel)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+devtmpfs on /dev type devtmpfs (rw,nosuid,seclabel,size=486728k,nr_inodes=121682,mode=755)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,seclabel)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,seclabel,mode=755)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,seclabel,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,net_prio,net_cls)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,perf_event)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,devices)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,blkio)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuacct,cpu)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,hugetlb)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,memory)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,pids)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuset)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,freezer)
+configfs on /sys/kernel/config type configfs (rw,relatime)
+/dev/mapper/centos-root on / type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=25,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=13366)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel)
+mqueue on /dev/mqueue type mqueue (rw,relatime,seclabel)
+/dev/sda1 on /boot type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=99796k,mode=700,uid=1000,gid=1000)
+/dev/sdb1 on /home/srinu type ext4 (rw,relatime,seclabel,data=ordered)
+
+to check the usage of that mounted partition
+
+[root@localhost srinu]# df -h
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root   17G  1.3G   16G   8% /
+devtmpfs                 476M     0  476M   0% /dev
+tmpfs                    488M     0  488M   0% /dev/shm
+tmpfs                    488M  7.7M  480M   2% /run
+tmpfs                    488M     0  488M   0% /sys/fs/cgroup
+/dev/sda1               1014M  130M  885M  13% /boot
+tmpfs                     98M     0   98M   0% /run/user/1000
+/dev/sdb1                976M  2.6M  907M   1% /home/srinu
+
+
+Label usage
+
+[root@localhost srinu]# mkfs.ext4 /dev/sdb2
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=1024 (log=0)
+Fragment size=1024 (log=0)
+Stride=0 blocks, Stripe width=0 blocks
+128016 inodes, 512000 blocks
+25600 blocks (5.00%) reserved for the super user
+First data block=1
+Maximum filesystem blocks=34078720
+63 block groups
+8192 blocks per group, 8192 fragments per group
+2032 inodes per group
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729, 204801, 221185, 401409
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done 
+
+[root@localhost srinu]# e2label /dev/sdb2/ labelchange1
+e2label: Not a directory while trying to open /dev/sdb2/
+Couldn't find valid filesystem superblock.
+[root@localhost srinu]# e2label /dev/sdb2 labelchange1
+[root@localhost srinu]# fdisk -l
+
+Disk /dev/sda: 21.5 GB, 21474836480 bytes, 41943040 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0003b11b
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048     2099199     1048576   83  Linux
+/dev/sda2         2099200    41943039    19921920   8e  Linux LVM
+
+Disk /dev/mapper/centos-root: 18.2 GB, 18249416704 bytes, 35643392 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/mapper/centos-swap: 2147 MB, 2147483648 bytes, 4194304 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sdb: 2147 MB, 2147483648 bytes, 4194304 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x8b6518ce
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1         1028096     3125247     1048576   83  Linux
+/dev/sdb2            2048     1026047      512000   83  Linux
+/dev/sdb3         1026048     1028095        1024   83  Linux
+/dev/sdb4         3125248     3944447      409600   83  Linux
+
+Partition table entries are not in disk order
+[root@localhost srinu]# df -h
+Filesystem               Size  Used Avail Use% Mounted on
+/dev/mapper/centos-root   17G  1.3G   16G   8% /
+devtmpfs                 476M     0  476M   0% /dev
+tmpfs                    488M     0  488M   0% /dev/shm
+tmpfs                    488M  7.7M  480M   2% /run
+tmpfs                    488M     0  488M   0% /sys/fs/cgroup
+/dev/sda1               1014M  130M  885M  13% /boot
+tmpfs                     98M     0   98M   0% /run/user/1000
+/dev/sdb1                976M  2.6M  907M   1% /home/srinu
+[root@localhost srinu]# parted -l
+Model: VMware, VMware Virtual S (scsi)
+Disk /dev/sda: 21.5GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 1      1049kB  1075MB  1074MB  primary  xfs          boot
+ 2      1075MB  21.5GB  20.4GB  primary               lvm
+
+
+Model: ATA VMware Virtual S (scsi)
+Disk /dev/sdb: 2147MB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start   End     Size    Type     File system  Flags
+ 2      1049kB  525MB   524MB   primary  ext4
+ 3      525MB   526MB   1049kB  primary
+ 1      526MB   1600MB  1074MB  primary  ext4
+ 4      1600MB  2020MB  419MB   primary
+
+
+Model: Linux device-mapper (linear) (dm)
+Disk /dev/mapper/centos-swap: 2147MB
+Sector size (logical/physical): 512B/512B
+Partition Table: loop
+Disk Flags: 
+
+Number  Start  End     Size    File system     Flags
+ 1      0.00B  2147MB  2147MB  linux-swap(v1)
+
+
+Model: Linux device-mapper (linear) (dm)
+Disk /dev/mapper/centos-root: 18.2GB
+Sector size (logical/physical): 512B/512B
+Partition Table: loop
+Disk Flags: 
+
+Number  Start  End     Size    File system  Flags
+ 1      0.00B  18.2GB  18.2GB  xfs
+
+
+Warning: Unable to open /dev/sr0 read-write (Read-only file system).  /dev/sr0
+has been opened read-only.
+Model: NECVMWar VMware IDE CDR10 (scsi)                                   
+Disk /dev/sr0: 950MB
+Sector size (logical/physical): 2048B/2048B
+Partition Table: msdos
+Disk Flags: 
+
+Number  Start  End     Size    Type     File system  Flags
+ 2      893kB  37.7MB  36.8MB  primary
+
+
+[root@localhost srinu]# e2label /dev/sdb2
+labelchange1
+
+Mounting a partition with label name, temparory
+
+[root@localhost srinu]# mount LABEL=labelchange1 /home/sasi
+
+
+Mounting a partition with label name, permanently
+
+# VIM /etc/fstab
+
+lastline adding as below
+
+LABEL=labelchange1 /home/sasi ext4 defaults 0 0 
+
+UUID to get used command
+ # blkid <partition name>
+
+[root@localhost srinu]# blkid /dev/sdb3
+[root@localhost srinu]# blkid /dev/sdb2
+/dev/sdb2: LABEL="labelchange1" UUID="41401cd2-8656-4440-8e14-1a45ebdb27c1" TYPE="ext4" 
+[root@localhost srinu]# 
+
+
+
+
+
+
+
+
+
+ 
+Logical Volume Management 
+
+Done already
+Administrating remote system- ssh-keygen, ssh-copy-id , then again login as ssh user@ip -for this first attempt u need to provide passwd
+
+August 18th 
+ACL ..Access Control list
+
+Enhanced User secuirty with SUDO
+
+S/W management
+
+August 19th 
+BackUp and Restore
+
+Job Automation -Scheduling jobs
+
+Network confiuration and trouble shooting 
+
+September 1st/2nd
+
+Git Repository operations basic
+
+# git init --- to initialize the current directory as git repository- version control system 
+
+configuration:
+
+git config --global user.name "srinivas" ######user info#####
+[root@localhost srinivas]# git config --global user.email "jsrinivas.0022@gmail.com"  ######user mail #####
+
+git clone-- first time download
+git pull-- to update existing code of local with/from central repo
+git status -- to check the status of current local code
+git commit-- to save the chnages to git in local
+git push-- to update the central with local changes 
+
+
+AWS -- EC2(cloud computing) ElasticContainerService(afterdocker), S3(simple storage servise , Auto scaling, Elastic load balancing ,EBS block storage,  
+, VPC, AMI, SNS, RDS, IAM, Route 53, Cloud Front, Cloud Watch, Cloud Trail, Cloud Formation, Security Groups.
+
+Anisble
+
+Docker
+
+Nagios/Cloud Watch
+
+Jenkins - Maven install and integrate with Jenkins or Ant installation and integrate with Jenkins  
+
+
+# git 
+[root@localhost ~]# mv devopspracticelinuc.txt srinivas/
+[root@localhost ~]# ls
+anaconda-ks.cfg  srinivas
+[root@localhost ~]# cd srinivas/
+[root@localhost srinivas]# ls
+devopspracticelinuc.txt
+[root@localhost srinivas]# git init
+Initialized empty Git repository in /root/srinivas/.git/
+[root@localhost srinivas]# git config --global user.name "srinivas"
+[root@localhost srinivas]# git config --global user.email "jsrinivas.0022@gmail.com"
+[root@localhost srinivas]# git remote add origin https://github.com/bharathpantala/srinu.git
+[root@localhost srinivas]# git remote -v
+origin	https://github.com/bharathpantala/srinu.git (fetch)
+origin	https://github.com/bharathpantala/srinu.git (push)
+[root@localhost srinivas]# git add *
+[root@localhost srinivas]# git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#	new file:   devopspracticelinuc.txt
+#
+[root@localhost srinivas]# git commit devopspracticelinuc.txt -m "1.0"
+[master (root-commit) a5f3a2a] 1.0
+ 1 file changed, 171 insertions(+)
+ create mode 100644 devopspracticelinuc.txt
+[root@localhost srinivas]# git push origin master
+Username for 'https://github.com': bharathpantala 
+Password for 'https://bharathpantala@github.com': 
+Counting objects: 3, done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 2.21 KiB | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/bharathpantala/srinu.git
+ * [new branch]      master -> master
+[root@localhost srinivas]# git pull origin master
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/bharathpantala/srinu
+ * branch            master     -> FETCH_HEAD
+Updating a5f3a2a..b8b3ab3
+Fast-forward
+ devopspracticelinuc.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
+[root@localhost srinivas]# ls
+devopspracticelinuc.txt
+[root@localhost srinivas]# vim devopspracticelinuc.txt 
+[root@localhost srinivas]# history  >> devopspracticelinuc.txt 
+[root@localhost srinivas]# git staus
+git: 'staus' is not a git command. See 'git --help'.
+
+Did you mean this?
+	status
+[root@localhost srinivas]# git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   devopspracticelinuc.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[root@localhost srinivas]# git commit
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   devopspracticelinuc.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[root@localhost srinivas]# git commit devopspracticelinuc.txt -m "1.3"
+[master f204355] 1.3
+ 1 file changed, 198 insertions(+), 7 deletions(-)
+[root@localhost srinivas]# git push origin master
+Username for 'https://github.com': bharathpantala
+Password for 'https://bharathpantala@github.com': 
+Counting objects: 5, done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 2.59 KiB | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/bharathpantala/srinu.git
+   b8b3ab3..f204355  master -> master
+[root@localhost srinivas]# 
+
+ 
+ 
+ 
+ 
